@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie list</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        /* Reset default margin and padding */
+body, h1, h2, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body background color and font */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Header styling */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Movie Projects Section */
+.movie-projects {
+    background: rgb(0, 179, 255);
+    padding: 20px 0;
+}
+
+/* Movie Projects Container */
+.movie-projects-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Movie Projects Row */
+.movie-projects-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Movie Project Card */
+.movie-project-card {
+    width: calc(25% - 20px);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Movie Project Card Image */
+.movie-project-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Movie Project Card Title */
+.movie-project-card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Movie Project Card Details Link */
+.movie-project-card p {
+    margin: 0;
+}
+
+/* Media Query for Responsiveness */
+@media screen and (max-width: 768px) {
+    .movie-project-card {
+        width: calc(50% - 20px);
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie List</h1>
+    </header>
+
+
+<section id="movie-projects" class="movie-projects">
+    <div class="movie-projects-container">
+        {% if movies %}
+            <div class="movie-projects-row">
+                {% for movie in movies %}
+                    {% if forloop.counter0|divisibleby:4 and not forloop.first %}
+                        </div><div class="movie-projects-row">
+                    {% endif %}
+                    <div class="movie-project-card">
+                        <img src="{{ movie.image.url }}" alt="{{ movie.title }}">
+                        <h3>{{ movie.title }}</h3>
+                        <p><a href="{% url 'movie_detail' movie.id %}">View Details</a></p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No movies available</p>
+        {% endif %}
+    </div>
+</section>
+
+
+</body>
+</html>

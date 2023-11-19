@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: gray;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+            text-align: center;
+            color: #333;
+        }
+        .weather-form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .weather-form label {
+            font-weight: bold;
+            color: #333;
+        }
+        .weather-form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .weather-form input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+        .weather-form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .weather-form button:hover {
+            background-color: #45a049;
+        }
+        .weather-info {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            color: #444;
+        }
+        .weather-info h2 {
+            color: #4CAF50;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .weather-info p {
+            font-size: 18px;
+        }
+        .weather-icon {
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+
+        <form method="post" action="{% url 'weather' %}" class="weather-form">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if weather_data %}
+            <div class="weather-info">
+                <h2>Weather in {{ weather_data.city }}</h2>
+                <p>Temperature: {{ weather_data.temperature }}°C</p>
+                <p>Description: {{ weather_data.description }}</p>
+                <p>Humidity: {{ weather_data.humidity }}%</p>
+                <p>Wind Speed: {{ weather_data.wind_speed }} m/s</p>
+                {% if weather_data.icon %}
+                    <img src="http://openweathermap.org/img/wn/{{ weather_data.icon }}.png" alt="Weather Icon" class="weather-icon">
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

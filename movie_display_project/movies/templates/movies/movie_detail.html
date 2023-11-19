@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Detail</title>
+    <style>
+        /* Reset default margin and padding */
+        body, h1, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Center content horizontally */
+        html, body {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: blue; /* Light blue background */
+        }
+
+        /* Movie Detail Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        /* Movie Detail Box */
+        .detail-box {
+            width: 100%;
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        /* Movie Title */
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        /* Movie Description */
+        p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* Release Date */
+        .release-date {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        /* Video Box */
+        .video-box {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="detail-box">
+            <h1>{{ movie.title }}</h1>
+            <p>{{ movie.description }}</p>
+            <p class="release-date">Release Date: {{ movie.release_date }}</p>
+        </div>
+        {% if movie.video_file %}
+            <div class="video-box">
+                <video width="560" height="315" controls>
+                    <source src="{{ movie.video_file.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
